@@ -3,7 +3,7 @@
   hosts: web
   become: true
   roles:
-    - ansible-cockpit
+    - ansible-cockpit-master
   tasks:
     - name: setup users
       users:
