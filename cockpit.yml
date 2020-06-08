@@ -6,7 +6,7 @@
     - ansible-cockpit-master
   tasks:
     - name: setup users
-      users:
+      user:
           name: azure-user
           group: wheel
           password: $1$sha512$p4fDxyhGzA9ig4t11MmHD1
