@@ -9,4 +9,6 @@
 
   - name: Enable rhel-7-server-rpms
     shell: subscription-manager repos --enable 'rhel-7-server-rpms'
-           
+  - name: Enable Cockpit Repo
+    shell: subscription-manager repos --enable rhel-7-server-extras-rpms
+
