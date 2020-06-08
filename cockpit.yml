@@ -4,3 +4,9 @@
   become: true
   roles:
     - ansible-cockpit
+  tasks:
+    - name: setup users
+      users:
+          name: azure-user
+          group: wheel
+          password:
