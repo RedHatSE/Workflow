@@ -1,0 +1,67 @@
+---
+# tasks file for bvansomeren.cockpit
+
+- name: ensure cockpit is installed
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ cockpit_packages }}"
+
+- name: disable cockpit internal TLS
+  ini_file:
+    dest: "/usr/lib/systemd/system/cockpit.service"
+    section: "Service"
+    option: "ExecStart"
+    value: "/usr/libexec/cockpit-ws --no-tls"
+  register: systemd
+  when: cockpit_disable_tls
+
+- name: change default listen port
+  blockinfile:
+    dest: "/etc/systemd/system/cockpit.socket.d/listen.conf"
+    create: true
+    backup: true
+    owner: root
+    group: root
+    mode: 0755
+    state: present
+    block: |
+      [Socket]
+      ListenStream=
+      ListenStream={{ cockpit_listen_port }}
+  when: cockpit_listen_port != "9090"
+
+- name: do selinux change if required
+  block:
+    - name: install package
+      package:
+        name: policycoreutils-python
+        state: present
+    - name: enable seport
+      seport:
+        ports: "{{ cockpit_listen_port }}"
+        proto: tcp
+        setype: websm_port_t
+        state: present
+  when: cockpit_listen_port != "9090" and cockpit_use_selinux
+
+- name: enable firewall
+  block:
+    - name: install firewalld bindings
+      package:
+        name: python-firewall
+        state: present
+    - name: enable firewalld
+      firewalld:
+        port: "{{ cockpit_listen_port }}/tcp"
+        permanent: true
+        immediate: true
+        state: enabled
+  when: cockpit_use_firewalld
+
+- name: ensure Cockpit is started
+  systemd:
+    name: "cockpit.socket"
+    state: "started"
+    enabled: true
+    daemon_reload: true
