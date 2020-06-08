@@ -1,10 +1,10 @@
 ---
-# defaults file for bvansomeren.cockpit
+
 cockpit_disable_tls: false
 cockpit_packages:
   - cockpit
   - cockpit-bridge
   - cockpit-machines
-cockpit_use_firewalld: false
-cockpit_use_selinux: false
-cockpit_listen_port: 9090
+cockpit_use_firewalld: true
+cockpit_use_selinux: true
+cockpit_listen_port: 8080
