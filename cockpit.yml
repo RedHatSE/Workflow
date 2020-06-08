@@ -9,4 +9,4 @@
       users:
           name: azure-user
           group: wheel
-          password:
+          password: $1$sha512$p4fDxyhGzA9ig4t11MmHD1
