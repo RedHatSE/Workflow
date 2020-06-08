@@ -1,0 +1,11 @@
+---
+ - hosts: web
+   become: true
+   
+   tasks:
+      - name: setup yum
+        yum:
+           name: postgres
+           state: present
+           
+           
