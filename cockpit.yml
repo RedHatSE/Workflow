@@ -1,0 +1,6 @@
+---
+- name: setup cockpit
+  hosts: web
+  become: true
+  roles:
+    - ansible-cockpit
