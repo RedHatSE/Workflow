@@ -3,7 +3,7 @@
   become: true
   tasks:
   - name: Update packages
-    yum: name=kernel* state=latest
+    yum: name=* state=latest
 
 
   - name: Check whether kernel was updated
