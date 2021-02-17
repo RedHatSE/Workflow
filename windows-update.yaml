@@ -11,5 +11,6 @@
          - DefinitionUpdates
          - SecurityUpdates
          - Updates
+       state: installed  
     reboot: yes
     reboot_timeout: 420
