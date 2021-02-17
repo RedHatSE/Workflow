@@ -5,11 +5,11 @@
   tasks:
   - name: windows updates running
     win_updates:
-      category_names:
-        - Application
-        - CriticalUpdates
-        - DefinitionUpdates
-        - SecurityUpdates
-        - Updates
+       category_names:
+         - Application
+         - CriticalUpdates
+         - DefinitionUpdates
+         - SecurityUpdates
+         - Updates
     reboot: yes
     reboot_timeout: 420
