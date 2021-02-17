@@ -1,9 +1,9 @@
 ---
-- name: Run Updates
+- name: "Run Updates"
   hosts: windows
   connection: winrm
   tasks:
-  - name: windows updates
+  - name: "Windows Updates"
     win_updates:
        category_names:
          - Application
