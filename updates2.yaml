@@ -1,0 +1,17 @@
+---
+- name: setup updates
+  become: true
+  tasks:
+  - name: Update packages
+    yum: name=* state=latest
+
+
+  - name: Check whether kernel was updated
+    shell: if [ $(rpm -q --last kernel | awk 'NR==1 {print $1}') != kernel-$(uname -r) ]; then echo 'reboot'; else echo 'Kernel is current'; fi
+    ignore_errors: true
+  
+
+
+  - name: Rebooting for kernel update
+    reboot:
+      reboot_timeout: 3600
